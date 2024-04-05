@@ -1,0 +1,20 @@
+fun operation(x:int, y:int)
+  begin 
+    return y * operation(x-1)
+  end
+
+fun main()
+  x: int;
+  y: int;
+  result: int;
+   begin
+      print("Ingrese un numero x:");
+      read(x);
+      print("Ingrese un numero y:");
+      read(y);
+      result := operation(x, y);
+      write(result)
+   end
+   
+
+

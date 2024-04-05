@@ -1,0 +1,81 @@
+program ::= funclist
+
+funclist ::= funclist function
+    | function
+
+function ::= 'FUN' 'IDENT' parmlist varlist 'BEGIN' statements 'END'
+
+varlist ::= decllist optsemi
+    | 
+
+optsemi ::= ';'
+    |
+
+decllist ::= decllist ';' vardecl
+    | vardecl
+
+vardecl ::= parm 
+    | function
+
+parmlist ::= '(' parmlistitems ')'
+    | '(' ')'
+
+parmlistitems ::= parmlistitems ',' parm
+    | parm
+
+parm ::= 'IDENT' ':' typename
+
+typename ::= 'INT'
+    | 'FLOAT'
+    | 'INT' '[' expr ']'
+    | 'FLOAT' '[' expr ']'
+
+statements ::= statements ';' statement
+    | statement
+
+statement ::= 'PRINT' '(' 'STRING' ')'
+    | 'WRITE' '(' expr ')'
+    | 'READ' '(' location ')'
+    | 'WHILE' relop DO statement
+    | 'BREAK'
+    | 'IF' relop 'THEN' statement 
+    | 'IF' relop 'THEN' statement 'ELSE' statement
+    | 'BEGIN' statements 'END'
+    | location ':=' expr
+    | 'RETURN' expr
+    | 'SKIP'
+    | 'IDENT' '(' exprlist ')'
+
+location ::= 'IDENT'
+    | 'IDENT' '[' expr ']'
+
+exprlist ::= exprlistitems
+    |
+
+exprlistitems ::= exprlistitems ',' expr
+    | expr
+
+expr ::= expr '+' expr
+    | expr '-' expr
+    | expr '*' expr
+    | expr '/' expr
+    | '-' expr
+    | '+' expr
+    | '(' expr ')'
+    | 'IDENT' '[' expr ']'
+    | 'INUMBER'
+    | 'FNUMBER'
+    | 'IDENT' '(' exprlist ')'
+    | 'IDENT'
+    | 'INT' '(' expr ')'
+    | 'FLOAT' '(' expr ')'
+
+relop ::= expr 'LT' expr
+    | expr 'LE' expr
+    | expr 'GT' expr
+    | expr 'GE' expr
+    | expr 'EQ' expr
+    | expr 'NE' expr
+    | relop 'AND' relop
+    | relop 'OR' relop
+    | 'NOT' relop
